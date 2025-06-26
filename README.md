@@ -14,20 +14,25 @@ This repository contains the necessary files to deploy n8n (workflow automation 
 For security reasons, authentication credentials are not included in the repository. You'll need to set these environment variables manually in the Render console after deployment:
 
 **Required Environment Variables:**
+
+Set all of these in the Render console (Environment tab):
+
+**Authentication:**
 - `N8N_BASIC_AUTH_USER` → Your desired n8n username
 - `N8N_BASIC_AUTH_PASSWORD` → A secure password
-- `WEBHOOK_URL` → Your Render service URL (e.g., `https://your-service-name.onrender.com`)
 
-**Important:** You'll also need to update these URL-related variables with your actual Render URL:
+**URL Configuration:**
+- `WEBHOOK_URL` → Your full Render service URL (e.g., `https://your-service-name.onrender.com`)
 - `N8N_HOST` → Just the hostname part (e.g., `your-service-name.onrender.com`)
-- `N8N_PROTOCOL` → Should be `https`
+- `N8N_PROTOCOL` → Should be `https`  
 - `N8N_PORT` → Should be `443`
 
 **How to set them:**
 1. After deploying your service on Render
 2. Go to your service dashboard
 3. Click on the **"Environment"** tab
-4. Add the environment variables listed above
+4. Add ALL the environment variables listed above (both authentication and URL configuration)
+5. Click "Save Changes" and your service will automatically redeploy
 
 ### 2. Push to GitHub
 
@@ -47,7 +52,10 @@ git push -u origin main
 4. Choose your GitHub repository
 5. Render should automatically detect the Docker setup
 6. Review the configuration and deploy
-7. **Important:** After deployment, immediately set the required environment variables (see step 1)
+7. **Critical:** Immediately add all environment variables in Render console:
+   - Go to your service → **Environment** tab
+   - Add all 6 environment variables from the reference section
+   - Click "Save Changes" to redeploy with the variables
 
 ### 4. Important Notes
 
@@ -68,23 +76,28 @@ Your workflows and configurations will now persist across deployments and restar
 
 ### 6. Environment Variables Reference
 
-Set these in the Render console (Environment tab):
+**Set ALL of these in the Render console (Environment tab):**
 
 ```env
+# Authentication
 N8N_BASIC_AUTH_USER=your_chosen_username
 N8N_BASIC_AUTH_PASSWORD=your_secure_password_here
+
+# URL Configuration (replace with your actual Render URL)
 WEBHOOK_URL=https://n8n-render-f6eh.onrender.com
 N8N_HOST=n8n-render-f6eh.onrender.com
 N8N_PROTOCOL=https
 N8N_PORT=443
 ```
 
-> **Note**: Replace `n8n-render-f6eh.onrender.com` with your actual Render service URL. You can find this in your Render service dashboard.
+> **Important**: Replace `n8n-render-f6eh.onrender.com` with your actual Render service URL. You can find this in your Render service dashboard.
 
-**Why these variables are needed:**
+**Why these URL variables fix the localhost issue:**
 - `WEBHOOK_URL` - Tells n8n where webhooks should point
-- `N8N_HOST` - Sets the hostname n8n thinks it's running on
-- `N8N_PROTOCOL` & `N8N_PORT` - Ensures n8n knows it's running on HTTPS
+- `N8N_HOST` - Sets the hostname n8n thinks it's running on (fixes localhost problem)
+- `N8N_PROTOCOL` & `N8N_PORT` - Ensures n8n knows it's running on HTTPS port 443
+
+> **Security Note**: All sensitive variables (credentials and URLs) are kept in Render console, not in your repository code.
 
 ### Optional: Configure External Database
 
