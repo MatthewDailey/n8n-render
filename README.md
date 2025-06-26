@@ -5,7 +5,7 @@ This repository contains the necessary files to deploy n8n (workflow automation 
 ## Files Created
 
 - **Dockerfile**: Simple Docker configuration that uses the latest n8n image
-- **render.yaml**: Render configuration file for automated deployment
+- **render.yaml**: Render configuration file for automated deployment with persistent disk storage
 
 ## What You Need to Do Manually
 
@@ -38,9 +38,19 @@ git push -u origin main
 
 ### 4. Important Notes
 
-- **Storage**: Render free tier doesn't have persistent storage. Your workflows will be lost on restarts unless you configure external storage
-- **Database**: For production use, configure external PostgreSQL database
+- **Storage**: ✅ Persistent disk configured! Your workflows and data will be saved to `/var/data` and persist across deployments
+- **Database**: The configuration uses file-based storage on the persistent disk. For production use, you may still want to configure external PostgreSQL database
 - **Webhook URL**: After deployment, update the `WEBHOOK_URL` environment variable with your actual Render URL
+
+### 5. Persistent Storage Configuration
+
+This setup includes a Render disk for persistent storage:
+
+- **Disk Mount**: `/var/data` (1GB disk)
+- **n8n Data Folder**: `/var/data/.n8n` (set via `N8N_USER_FOLDER`)
+- **What's Stored**: Workflows, credentials, execution history, and all n8n data
+
+Your workflows and configurations will now persist across deployments and restarts!
 
 ### Optional: Configure External Database
 
