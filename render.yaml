@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: n8n
+    env: docker
+    plan: starter
+    region: oregon
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: N8N_BASIC_AUTH_ACTIVE
+        value: true
+      - key: N8N_BASIC_AUTH_USER
+        value: yourUsername
+      - key: N8N_BASIC_AUTH_PASSWORD
+        value: yourPassword
+      - key: WEBHOOK_URL
+        value: https://your-service.onrender.com 
