@@ -12,11 +12,5 @@ services:
     envVars:
       - key: N8N_BASIC_AUTH_ACTIVE
         value: true
-      - key: N8N_BASIC_AUTH_USER
-        value: yourUsername
-      - key: N8N_BASIC_AUTH_PASSWORD
-        value: yourPassword
-      - key: WEBHOOK_URL
-        value: https://your-service.onrender.com
       - key: N8N_USER_FOLDER
         value: /var/data/.n8n 

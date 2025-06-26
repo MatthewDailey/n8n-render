@@ -9,13 +9,20 @@ This repository contains the necessary files to deploy n8n (workflow automation 
 
 ## What You Need to Do Manually
 
-### 1. Customize the render.yaml file
+### 1. Set Environment Variables in Render Console
 
-Before pushing to GitHub, update these values in `render.yaml`:
+For security reasons, authentication credentials are not included in the repository. You'll need to set these environment variables manually in the Render console after deployment:
 
-- `yourUsername` → Replace with your desired n8n username
-- `yourPassword` → Replace with a secure password
-- `https://your-service.onrender.com` → This will be replaced with your actual Render URL after deployment
+**Required Environment Variables:**
+- `N8N_BASIC_AUTH_USER` → Your desired n8n username
+- `N8N_BASIC_AUTH_PASSWORD` → A secure password
+- `WEBHOOK_URL` → Your Render service URL (e.g., `https://your-service-name.onrender.com`)
+
+**How to set them:**
+1. After deploying your service on Render
+2. Go to your service dashboard
+3. Click on the **"Environment"** tab
+4. Add the environment variables listed above
 
 ### 2. Push to GitHub
 
@@ -35,12 +42,14 @@ git push -u origin main
 4. Choose your GitHub repository
 5. Render should automatically detect the Docker setup
 6. Review the configuration and deploy
+7. **Important:** After deployment, immediately set the required environment variables (see step 1)
 
 ### 4. Important Notes
 
+- **Security**: ✅ Credentials are kept secure! Authentication variables are set in Render console, not in the repository
 - **Storage**: ✅ Persistent disk configured! Your workflows and data will be saved to `/var/data` and persist across deployments
 - **Database**: The configuration uses file-based storage on the persistent disk. For production use, you may still want to configure external PostgreSQL database
-- **Webhook URL**: After deployment, update the `WEBHOOK_URL` environment variable with your actual Render URL
+- **Environment Variables**: Remember to set the required environment variables in Render console after deployment
 
 ### 5. Persistent Storage Configuration
 
@@ -51,6 +60,18 @@ This setup includes a Render disk for persistent storage:
 - **What's Stored**: Workflows, credentials, execution history, and all n8n data
 
 Your workflows and configurations will now persist across deployments and restarts!
+
+### 6. Environment Variables Reference
+
+Set these in the Render console (Environment tab):
+
+```env
+N8N_BASIC_AUTH_USER=your_chosen_username
+N8N_BASIC_AUTH_PASSWORD=your_secure_password_here
+WEBHOOK_URL=https://your-service-name.onrender.com
+```
+
+> **Note**: The `WEBHOOK_URL` should match your actual Render service URL. You can find this in your Render service dashboard.
 
 ### Optional: Configure External Database
 
