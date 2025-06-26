@@ -13,4 +13,8 @@ services:
       - key: N8N_BASIC_AUTH_ACTIVE
         value: true
       - key: N8N_USER_FOLDER
-        value: /var/data/.n8n 
+        value: /var/data/.n8n
+      - key: N8N_PROTOCOL
+        value: https
+      - key: N8N_PORT
+        value: 443 

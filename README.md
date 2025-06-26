@@ -18,6 +18,11 @@ For security reasons, authentication credentials are not included in the reposit
 - `N8N_BASIC_AUTH_PASSWORD` → A secure password
 - `WEBHOOK_URL` → Your Render service URL (e.g., `https://your-service-name.onrender.com`)
 
+**Important:** You'll also need to update these URL-related variables with your actual Render URL:
+- `N8N_HOST` → Just the hostname part (e.g., `your-service-name.onrender.com`)
+- `N8N_PROTOCOL` → Should be `https`
+- `N8N_PORT` → Should be `443`
+
 **How to set them:**
 1. After deploying your service on Render
 2. Go to your service dashboard
@@ -68,10 +73,18 @@ Set these in the Render console (Environment tab):
 ```env
 N8N_BASIC_AUTH_USER=your_chosen_username
 N8N_BASIC_AUTH_PASSWORD=your_secure_password_here
-WEBHOOK_URL=https://your-service-name.onrender.com
+WEBHOOK_URL=https://n8n-render-f6eh.onrender.com
+N8N_HOST=n8n-render-f6eh.onrender.com
+N8N_PROTOCOL=https
+N8N_PORT=443
 ```
 
-> **Note**: The `WEBHOOK_URL` should match your actual Render service URL. You can find this in your Render service dashboard.
+> **Note**: Replace `n8n-render-f6eh.onrender.com` with your actual Render service URL. You can find this in your Render service dashboard.
+
+**Why these variables are needed:**
+- `WEBHOOK_URL` - Tells n8n where webhooks should point
+- `N8N_HOST` - Sets the hostname n8n thinks it's running on
+- `N8N_PROTOCOL` & `N8N_PORT` - Ensures n8n knows it's running on HTTPS
 
 ### Optional: Configure External Database
 
